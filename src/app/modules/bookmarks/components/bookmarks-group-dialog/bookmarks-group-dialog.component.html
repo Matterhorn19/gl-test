@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Add new group</h1>
+<form
+  [formGroup]="addGroupFormGroup"
+  (ngSubmit)="submit(addGroupFormGroup.value)">
+  <div mat-dialog-content>
+    <mat-form-field class="w-100">
+      <mat-label>Group name</mat-label>
+      <input placeholder="Enter group name"
+        matInput
+        formControlName="name">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions
+    align="end">
+    <button type="button"
+      mat-button
+      mat-dialog-close>Cancel</button>
+    <button type="submit"
+      mat-button
+      color="primary"
+      [disabled]="addGroupFormGroup.invalid">Save</button>
+  </div>
+</form>

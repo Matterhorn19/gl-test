@@ -1,0 +1,10 @@
+.remove-cell {
+  justify-content: flex-end;
+}
+
+.link {
+  display: block;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}

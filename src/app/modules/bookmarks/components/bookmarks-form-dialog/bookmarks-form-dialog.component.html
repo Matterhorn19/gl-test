@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Add new bookmark</h1>
+<form
+  [formGroup]="bookmarksFormGroup"
+  (ngSubmit)="submit(bookmarksFormGroup.value)">
+  <div mat-dialog-content>
+    <mat-form-field class="w-100">
+      <mat-label>Name</mat-label>
+      <input placeholder="Enter name"
+        matInput
+        formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <mat-label>Url</mat-label>
+      <input placeholder="Enter url"
+        matInput
+        formControlName="url">
+    </mat-form-field>
+
+    <div class="group-fields">
+      <mat-form-field class="group-fields__dropdown">
+        <mat-label>Group</mat-label>
+        <mat-select formControlName="group">
+          <mat-option *ngFor="let group of groups" value="{{group.id}}">{{group.name | titlecase}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="button"  title="Add new group"
+        mat-flat-button
+        (click)="openBookmarksGroupDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div mat-dialog-actions
+    align="end">
+    <button type="button"
+      mat-button
+      mat-dialog-close>Cancel</button>
+    <button type="submit"
+      mat-button
+      color="primary"
+      [disabled]="bookmarksFormGroup.invalid">Save</button>
+  </div>
+</form>

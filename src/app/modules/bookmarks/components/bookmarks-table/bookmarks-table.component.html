@@ -1,0 +1,55 @@
+<ng-container *ngIf="!!records.data.length; else noData">
+<mat-form-field class="w-100">
+    <mat-label>Group</mat-label>
+    <mat-select [value]="selectedGroup"
+      (selectionChange)="groupSelectionChange($event)">
+      <mat-option value="All">All</mat-option>
+      <mat-option *ngFor="let group of groups" value="{{group.id}}">{{group.name | titlecase}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-table class="panel mat-elevation-z2"
+    matSort
+    [dataSource]="records">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name | titlecase}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="link" title="{{element.url}}"
+          target="_blank"
+          [href]="element.url">{{element.url}}</a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="group">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Group </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{getGroupName(element.group) | titlecase}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell class="remove-cell"
+        *matCellDef="let element">
+        <button
+          mat-button
+          color="warn"
+          (click)="removeBookmark(element.id)">Remove</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</ng-container>
+
+<ng-template #noData>
+  <mat-card>
+    <mat-card-content>
+      <p>There are no one bookmarks</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
